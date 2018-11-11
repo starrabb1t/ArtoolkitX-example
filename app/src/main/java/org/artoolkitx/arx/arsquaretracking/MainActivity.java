@@ -19,7 +19,7 @@ public class MainActivity extends ARActivity {
      */
     @Override
     protected ARRenderer supplyRenderer() {
-        return new Renderer();
+        return new eRenderer();
     }
 
     /**
