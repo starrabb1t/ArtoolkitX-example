@@ -1,20 +1,20 @@
-package org.artoolkitx.arx.arsquaretracking.Graphics.Primitives;
+package org.artoolkitx.arx.arsquaretracking.Graphics.Templates.Primitives;
 
 /*import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.opengl.GLUtils;*/
+import android.opengl.GLUtils;
+//import org.artoolkitx.arx.arsquaretracking.R;
+//import javax.microedition.khronos.opengles.GL10;*/
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
-//import org.artoolkitx.arx.arsquaretracking.R;
+import org.artoolkitx.arx.arsquaretracking.Graphics.fColor;
 import org.artoolkitx.arx.arxj.rendering.ARDrawable;
 import org.artoolkitx.arx.arxj.rendering.RenderUtils;
 import org.artoolkitx.arx.arxj.rendering.ShaderProgram;
-
-//import javax.microedition.khronos.opengles.GL10;
 
 public final class Text implements ARDrawable {
     private FloatBuffer mVertexBuffer;
@@ -22,20 +22,17 @@ public final class Text implements ARDrawable {
     private ByteBuffer mIndexBuffer;
     private ShaderProgram shaderProgram;
 
-    public Text() {
-        this(1.0F);
-    }
-
     public Text(ShaderProgram shaderProgram) {
         this.shaderProgram = shaderProgram;
     }
 
-    public Text(float size) {
-        this(size, 0.0F, 0.0F, 0.0F);
+    public Text() {
+        this(new fColor(1.0F, 0.0F, 0.0F
+        ), 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
     }
 
-    public Text(float size, float x, float y, float z) {
-        this.setArrays(size, x, y, z);
+    public Text(fColor color, float width, float height, float x, float y, float z) {
+        this.setArrays(color, width, height, x, y, z);
     }
 
     public FloatBuffer getmVertexBuffer() {
@@ -50,12 +47,28 @@ public final class Text implements ARDrawable {
         return this.mIndexBuffer;
     }
 
-    private void setArrays(float size, float x, float y, float z) {
-        float hs = size / 2.0F;
-        float[] vertices = new float[]{x - hs, y - hs, z - hs, x + hs, y - hs, z - hs, x + hs, y + hs, z - hs, x - hs, y + hs, z - hs, x - hs, y - hs, z + hs, x + hs, y - hs, z + hs, x + hs, y + hs, z + hs, x - hs, y + hs, z + hs};
-        float c = 1.0F;
-        float[] colors = new float[]{0.0F, 0.0F, 0.0F, c, c, 0.0F, 0.0F, c, c, c, 0.0F, c, 0.0F, c, 0.0F, c, 0.0F, 0.0F, c, c, c, 0.0F, c, c, c, c, c, c, 0.0F, c, c, c};
-        byte[] indices = new byte[]{1, 0, 2, 2, 0, 3, 1, 2, 5, 5, 2, 6, 4, 5, 7, 7, 5, 6, 0, 4, 3, 3, 4, 7, 7, 6, 3, 6, 2, 3, 0, 1, 4, 4, 1, 5};
+    private void setArrays(fColor color, float width, float height, float x, float y, float z) {
+        float ws = width / 2.0F;
+        float hs = height / 2.0F;
+
+        float[] vertices = new float[]{
+                x - ws, y - hs, z,
+                x + ws, y - hs, z,
+                x + ws, y + hs, z,
+                x - ws, y + hs, z
+        };
+
+        float[] colors = new float[]{
+                color.red, color.green, color.blue, color.alpha,
+                color.red, color.green, color.blue, color.alpha,
+                color.red, color.green, color.blue, color.alpha,
+                color.red, color.green, color.blue, color.alpha
+        };
+        byte[] indices = new byte[]{
+                1, 2, 0,
+                0, 2, 3
+        };
+
         this.mVertexBuffer = RenderUtils.buildFloatBuffer(vertices);
         this.mColorBuffer = RenderUtils.buildFloatBuffer(colors);
         this.mIndexBuffer = RenderUtils.buildByteBuffer(indices);
@@ -70,6 +83,7 @@ public final class Text implements ARDrawable {
     public void setShaderProgram(ShaderProgram shaderProgram) {
         this.shaderProgram = shaderProgram;
     }
+}
 
     //TODO: implement textToBitmap(); BtimapToTexture()
 
@@ -113,4 +127,3 @@ public final class Text implements ARDrawable {
 //Clean up
         bitmap.recycle();
     }*/
-}

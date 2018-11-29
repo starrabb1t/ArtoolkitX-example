@@ -2,7 +2,8 @@ package org.artoolkitx.arx.arsquaretracking;
 
 import android.opengl.GLES20;
 
-import org.artoolkitx.arx.arsquaretracking.Graphics.Primitives.Sprite;
+import org.artoolkitx.arx.arsquaretracking.Graphics.Templates.Label;
+import org.artoolkitx.arx.arsquaretracking.Graphics.Templates.Primitives.Sprite;
 import org.artoolkitx.arx.arsquaretracking.Graphics.fColor;
 import org.artoolkitx.arx.arxj.ARController;
 import org.artoolkitx.arx.arxj.Trackable;
@@ -21,13 +22,13 @@ class eRenderer extends ARRenderer {
     private static final Trackable trackables[] = new Trackable[]{
             new Trackable("id_0", 80.0f),
             new Trackable("id_1", 80.0f),
-            new Trackable("id_2", 80.0f)
+            new Trackable("id_3", 80.0f)
     };
     private int trackableUIDs[] = new int[trackables.length];
 
     private Sprite sprite_0;
-    private Sprite sprite_1;
-    private Sprite sprite_2;
+    private Label label_0;
+    private Label label_1;
 
     /**
      * Markers can be configured here.
@@ -52,18 +53,20 @@ class eRenderer extends ARRenderer {
         sprite_0 = new Sprite(new fColor(1.0F,0.0F,0.0F),40.0f, 40.0f, 0.0f, 0.0f, 0.0f);
         sprite_0.setShaderProgram(shaderProgram);
 
-        sprite_1 = new Sprite(new fColor(0.0F,1.0F,0.0F),40.0f, 40.0f, 0.0f, 0.0f, 0.0f);
-        sprite_1.setShaderProgram(shaderProgram);
+        label_0 = new Label(new fColor(1.0F,1.0F,1.0F),new fColor(0.0F,1.0F,1.0F));
+        label_0.setShaderProgram(shaderProgram);
 
-        sprite_2 = new Sprite(new fColor(0.0F,0.0F,1.0F),40.0f, 40.0f, 0.0f, 0.0f, 0.0f);
-        sprite_2.setShaderProgram(shaderProgram);
+        label_1 = new Label(new fColor(1.0F,1.0F,1.0F),new fColor(1.0F,0.0F,1.0F));
+        label_1.setShaderProgram(shaderProgram);
 
         super.onSurfaceCreated(unused, config);
     }
 
-    /**
-     * Override the draw function from ARRenderer.
-     */
+    //TODO:
+    // implement my own shaders for texturing
+    // https://habr.com/post/309138/
+    // https://github.com/AlwaysDream/lesson_4_texture/blob/master/OpenGLRenderer.java
+
     @Override
     public void draw() {
         super.draw();
@@ -84,10 +87,10 @@ class eRenderer extends ARRenderer {
                         sprite_0.draw(projectionMatrix, modelViewMatrix);
                         break;
                     case 1:
-                        sprite_1.draw(projectionMatrix, modelViewMatrix);
+                        label_0.draw(projectionMatrix, modelViewMatrix);
                         break;
                     case 2:
-                        sprite_2.draw(projectionMatrix, modelViewMatrix);
+                        label_1.draw(projectionMatrix, modelViewMatrix);
                         break;
                 }
             }

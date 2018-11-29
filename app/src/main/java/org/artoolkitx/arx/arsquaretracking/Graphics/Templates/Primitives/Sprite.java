@@ -1,4 +1,4 @@
-package org.artoolkitx.arx.arsquaretracking.Graphics.Primitives;
+package org.artoolkitx.arx.arsquaretracking.Graphics.Templates.Primitives;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -19,11 +19,12 @@ public final class Sprite implements ARDrawable {
     }
 
     public Sprite() {
-        this(new fColor(1.0F, 0.0F, 0.0F), 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
+        this(new fColor(1.0F, 0.0F, 0.0F
+        ), 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
     }
 
-    public Sprite(fColor color, float width, float height, float x, float y, float z) {
-        this.setArrays(color, width, height, x, y, z);
+    public Sprite(fColor color, float width, float height, float x, float y, float z_index) {
+        this.setArrays(color, width, height, x, y, z_index);
     }
 
     public FloatBuffer getmVertexBuffer() {
@@ -38,15 +39,15 @@ public final class Sprite implements ARDrawable {
         return this.mIndexBuffer;
     }
 
-    private void setArrays(fColor color, float width, float height, float x, float y, float z) {
+    private void setArrays(fColor color, float width, float height, float x, float y, float z_index) {
         float ws = width / 2.0F;
         float hs = height / 2.0F;
 
         float[] vertices = new float[]{
-                x - ws, y - hs, z,
-                x + ws, y - hs, z,
-                x + ws, y + hs, z,
-                x - ws, y + hs, z
+                x - ws, y - hs, z_index,
+                x + ws, y - hs, z_index,
+                x + ws, y + hs, z_index,
+                x - ws, y + hs, z_index
         };
 
         float[] colors = new float[]{
