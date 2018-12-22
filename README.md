@@ -1,3 +1,3 @@
-# ErmasoftAR
+# ARXApp
 
 ArtoolkitX-based AR application
