@@ -1,3 +1,3 @@
 # ARXApp
 
-ArtoolkitX-based AR application
+ArtoolkitX-based AR example application
